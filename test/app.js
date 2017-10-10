@@ -1,0 +1,4 @@
+var tiresiasWebpack = require('../')
+tiresiasWebpack()
+
+

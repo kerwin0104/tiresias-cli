@@ -1,8 +1,11 @@
 {
   "name": "tiresias-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "tiresias": "./bin/tiresias.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +20,8 @@
   },
   "homepage": "https://github.com/kerwin0104/tiresias-cli#readme",
   "dependencies": {
-    "webpack": "^3.6.0"
+    "commander": "^2.11.0",
+    "tiresias": "0.0.4",
+    "tiresias-webpack": "0.0.4"
   }
 }

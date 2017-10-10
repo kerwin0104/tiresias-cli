@@ -1,0 +1,8 @@
+// static.js
+test
+
+
+
+
+
+
