@@ -1,10 +1,13 @@
 const path = require('path')
+const os = require('os')
 const tiresias = require('tiresias')
 const tiresiasWebpack = require('tiresias-webpack')
 const opn = require('opn')
 
-const webrootDir = path.join(__dirname, '../webroot')
+const webrootDir = path.join(os.tmpdir(), './webroot')
 const testBuildRootDir = path.join(__dirname, '../test')
+
+console.log(os.tmpdir())
 
 const defaultConfig = {}
 defaultConfig.port = 9999
@@ -57,7 +60,7 @@ function compileAndServe (customConfig = defaultConfig) {
   })
 }
 
-// compileAndServe()
+compileAndServe()
 module.exports = compileAndServe
 
 
