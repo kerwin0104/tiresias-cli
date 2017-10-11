@@ -7,8 +7,6 @@ const opn = require('opn')
 const webrootDir = path.join(os.tmpdir(), './webroot')
 const testBuildRootDir = path.join(__dirname, '../test')
 
-console.log(os.tmpdir())
-
 const defaultConfig = {}
 defaultConfig.port = 9999
 defaultConfig.rootDir = testBuildRootDir
