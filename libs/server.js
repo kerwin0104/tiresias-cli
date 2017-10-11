@@ -60,7 +60,7 @@ function compileAndServe (customConfig = defaultConfig) {
   })
 }
 
-compileAndServe()
+// compileAndServe()
 module.exports = compileAndServe
 
 

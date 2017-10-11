@@ -8,7 +8,7 @@ program
   .version(packageFile.version)
 
 program
-  .command('dev [serverPort]')
+  .command('run dev [serverPort]')
   .action(serverPort => {
     var buildConfig = {}
     buildConfig.port = serverPort || 9999
