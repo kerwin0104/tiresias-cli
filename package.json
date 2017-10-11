@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kerwin0104/tiresias-cli#readme",
   "dependencies": {
     "commander": "^2.11.0",
+    "opn": "^5.1.0",
     "tiresias": "0.0.4",
     "tiresias-webpack": "0.0.4"
   }

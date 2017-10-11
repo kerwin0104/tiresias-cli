@@ -1,8 +1,22 @@
 #! /usr/bin/env node
 
-var program = require('commander')
+const program = require('commander');
+const createDevServer = require('../libs/server')
+const packageFile = require('../package.json')
+ 
+program
+  .version(packageFile.version)
 
-console.log(2)
+program
+  .command('dev [serverPort]')
+  .action(serverPort => {
+    var buildConfig = {}
+    buildConfig.port = serverPort || 9999
+    buildConfig.rootDir = process.cwd()
+    createDevServer(buildConfig)
+  })
 
+program.parse(process.argv)
+ 
 
 
