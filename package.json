@@ -1,6 +1,6 @@
 {
   "name": "tiresias-cli",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kerwin0104/tiresias-cli#readme",
   "dependencies": {
     "commander": "^2.11.0",
+    "cpr": "^2.2.0",
     "opn": "^5.1.0",
     "tiresias": "0.0.4",
     "tiresias-webpack": "0.0.4"
