@@ -4,10 +4,12 @@ const path = require('path')
 const program = require('commander')
 const createDevServer = require('../libs/server')
 const buildProd = require('../libs/buildProd')
+const createProject = require('../libs/createProject')
 const packageFile = require('../package.json')
  
 program
-  .version(packageFile.version)
+  .version('tiresias-cli v' + packageFile.version)
+  .description('provide develop environment & build project for tiresias framework.')
 
 program
   .command('run <env>')
@@ -32,12 +34,15 @@ program
   })
 
 program
-  .command('int <projectName>')
+  .command('init <projectName>')
   .action(projectName => {
-    
+    var projectConfig = {}
+    projectConfig.distDir = path.join(process.cwd(), projectName)
+    createProject(projectConfig) 
   })
 
 program.parse(process.argv)
  
+if (!program.args.length) program.help();
 
 
