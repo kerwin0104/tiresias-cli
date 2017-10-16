@@ -35,10 +35,17 @@ program
 
 program
   .command('init <projectName>')
-  .action(projectName => {
+  .option('-c, --custom [custom]', 'custom [webpack cofing] and [tiresias server] for dev or build')
+  .action((projectName, options) => {
     var projectConfig = {}
     projectConfig.distDir = path.join(process.cwd(), projectName)
-    createProject(projectConfig) 
+    if (options.custom) {
+      createProject('hbs', projectConfig, () => {
+        createProject('custom', projectConfig) 
+      }) 
+    } else {
+      createProject(projectConfig) 
+    }
   })
 
 program.parse(process.argv)

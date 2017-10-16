@@ -1,0 +1,16 @@
+{
+  "name": "tiresias-custom-webpack",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kerwinzhang@foxmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "cpr": "^2.2.0",
+    "opn": "^5.1.0",
+    "tiresias-webpack": "^0.0.5"
+  }
+}
