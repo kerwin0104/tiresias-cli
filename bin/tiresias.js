@@ -7,15 +7,26 @@ const buildProd = require('../libs/buildProd')
 const createProject = require('../libs/createProject')
 const packageFile = require('../package.json')
  
+const description = `
+  =======================================================================
+    provide develop environment & build project for tiresias framework.
+    for more description use:
+       ----------------------
+       | tiresias run -h    |
+       | tiresias init -h   |
+       ----------------------
+  =======================================================================
+`
 program
   .version('tiresias-cli v' + packageFile.version)
-  .description('provide develop environment & build project for tiresias framework.')
+  .description(description)
 
 program
   .command('run <env>')
   .description( 'use "tiresias run dev" to start dev server and use "tiresias run prod" to build project.')
   .option('-p, --port [port]', 'dev server\'s port')
   .option('-d, --dist [dist]', 'build tartget directory')
+  .option('-c, --custom [custom]', 'custom [webpack cofing] and [tiresias server] for dev or build')
   .action((env, options) => {
     if (env === 'dev') {
       var buildConfig = {}
@@ -35,6 +46,7 @@ program
 
 program
   .command('init <projectName>')
+  .description( 'use "tiresias init <your project name>" to init your porject.')
   .option('-c, --custom [custom]', 'custom [webpack cofing] and [tiresias server] for dev or build')
   .action((projectName, options) => {
     var projectConfig = {}

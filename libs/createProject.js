@@ -1,5 +1,6 @@
 const cpr = require('cpr')
 const path = require('path')
+const fs = require('fs')
 
 const hbsTemplatePath = path.join(__dirname, '../tiresias-hbs-template')
 const customTemplatePath = path.join(__dirname, '../tiresias-custom-template')
@@ -43,7 +44,6 @@ function createProject (action, projectConfig, callback) {
       var newConfig = Object.assign({}, config)
       newConfig.rootDir = path.join(config.rootDir, './tiresias-custom-server')
       newConfig.distDir = path.join(config.distDir, './tiresias-custom-server')
-      console.log(newConfig)
 
       copyProjectFiles(newConfig, (err, files) => {
         callback && callback(err, files)
@@ -88,9 +88,6 @@ function createProject (action, projectConfig, callback) {
   }
 }
 
-// createProject({
-//   distDir: path.join(process.cwd(), './test-project')
-// })
 module.exports = createProject
 
 
