@@ -77,7 +77,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports) {
 
-alert(333)
+alert(2)
 
 
 /***/ })

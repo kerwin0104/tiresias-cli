@@ -1,15 +1,15 @@
 {
-  "name": "tiresias-template",
+  "name": "tiresias-custom-server",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "tiresias": "0.0.4"
+    "tiresias": "^0.0.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "kerwinzhang@foxmail.com",
+  "license": "MIT"
 }
