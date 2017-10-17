@@ -23,6 +23,10 @@ function createProject (action, projectConfig, callback) {
   var config = {}
   config.rootDir = hbsTemplatePath
   config.distDir = createDirPath
+  if (typeof action !== 'string') {
+    callback = projectConfig
+    projectConfig = action
+  }
   config = Object.assign({}, config, projectConfig)
 
   if (typeof action === 'string') {
@@ -74,10 +78,8 @@ function createProject (action, projectConfig, callback) {
       })     
     } 
   } else {
-    callback = projectConfig
-    projectConfig = action
     copyProjectFiles(config, (err, files) => {
-      callback(err, files)
+      callback && callback(err, files)
       if (err) {
         throw err
       } else {

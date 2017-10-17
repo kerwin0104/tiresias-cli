@@ -28,20 +28,25 @@ program
   .option('-d, --dist [dist]', 'build tartget directory')
   .option('-c, --custom [custom]', 'custom [webpack cofing] and [tiresias server] for dev or build')
   .action((env, options) => {
-    if (env === 'dev') {
-      var buildConfig = {}
-      buildConfig.port =  options.port || 9999
-      buildConfig.rootDir = process.cwd()
-      createDevServer(buildConfig)  
-    } 
-    if (env === 'prod') {
-      var cwd = process.cwd()
-      var config = {}
-      config.rootDir = path.join(cwd)
-      config.distDir = options.dist || path.join(cwd, './dist')
-      console.log(config)
-      buildProd(config)
-    } 
+    if (options.custom) {
+      var build = require(path.join(process.cwd(), `./tiresias-custom-webpack/build/${env}`))
+      build()
+    } else {
+      if (env === 'dev') {
+        var buildConfig = {}
+        buildConfig.port =  options.port || 9999
+        buildConfig.rootDir = process.cwd()
+        createDevServer(buildConfig)  
+      } 
+      if (env === 'prod') {
+        var cwd = process.cwd()
+        var config = {}
+        config.rootDir = path.join(cwd)
+        config.distDir = options.dist || path.join(cwd, './dist')
+        console.log(config)
+        buildProd(config)
+      }
+    }
   })
 
 program

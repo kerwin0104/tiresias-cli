@@ -52,7 +52,7 @@ function buildProd (buildConfig) {
   })
 }
 
-buildProd()
+// buildProd()
 
 module.exports = buildProd
 

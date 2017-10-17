@@ -59,6 +59,6 @@ function compileAndServe () {
   })
 }
 
-compileAndServe()
+// compileAndServe()
 
 module.exports = compileAndServe
