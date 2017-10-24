@@ -82,28 +82,6 @@ function buildConfig (callback,  buildConfig) {
                 limit: 100,
                 name: 'resources/img/[name].[hash:7].[ext]'
               }
-            },
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                gifsicle: {
-                  interlaced: false,
-                },
-                optipng: {
-                  optimizationLevel: 7,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4
-                },
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65
-                },
-                webp: {
-                  quality: 75
-                }
-              }
             }
         ]
       }
