@@ -6,17 +6,13 @@ const hbsTemplatePath = path.join(__dirname, '../tiresias-hbs-template')
 const customTemplatePath = path.join(__dirname, '../tiresias-custom-template')
 const createDirPath = path.join(process.cwd(), './tiresias-hbs-project-template')
 
-function copyProjectFiles (config, callback, custom) {
+function copyProjectFiles (config, callback) {
   console.log('copying project files...')
-  var options = {
+  cpr(config.rootDir || hbsTemplatePath, config.distDir, {
     deleteFirst: true,  //Delete "to" before
     overwrite: true,    //If the file exists, overwrite it
     confirm: true       //After the copy, stat all the copied files to make sure they are there
-  }
-  if (!custom) {
-    options.filter = /tiresias-custom-server|tiresias-custom-webpack/
-  }
-  cpr(config.rootDir || hbsTemplatePath, config.distDir, options, (err, files) => {
+  }, (err, files) => {
       if (typeof callback === 'function') {
         callback(err, files)
       } 
@@ -25,7 +21,7 @@ function copyProjectFiles (config, callback, custom) {
 
 function createProject (action, projectConfig, callback) {
   var config = {}
-  config.rootDir = customTemplatePath
+  config.rootDir = hbsTemplatePath
   config.distDir = createDirPath
   if (typeof action !== 'string') {
     callback = projectConfig
@@ -79,7 +75,7 @@ function createProject (action, projectConfig, callback) {
 
           
         }
-      }, true)     
+      })     
     } 
   } else {
     copyProjectFiles(config, (err, files) => {
