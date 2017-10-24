@@ -1,7 +1,8 @@
 const path = require('path')
 
 function resolve (dir) {
-  return path.join(__dirname, '../..', dir)
+  return path.join(process.cwd(), dir)
+  // return path.join(__dirname, '../..', dir)
 }
 
 var config = {

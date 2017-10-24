@@ -24,21 +24,22 @@ const baseConfig = {
 }
 
 // build config for common
-function buildConfig (callback) {
-  const rootDir = baseConfig.rootDir
-  const pageDir = path.join(rootDir, baseConfig.pageDir)
-  const resourceDir = path.join(rootDir, baseConfig.resourceDir)
-  const actionDir = path.join(rootDir, baseConfig.actionDir)
-  const staticDir = path.join(rootDir, baseConfig.staticDir)
+function buildConfig (callback,  buildConfig) {
+  buildConfig = Object.assign({}, baseConfig, buildConfig)
+  const rootDir = buildConfig.rootDir
+  const pageDir = path.join(rootDir, buildConfig.pageDir)
+  const resourceDir = path.join(rootDir, buildConfig.resourceDir)
+  const actionDir = path.join(rootDir, buildConfig.actionDir)
+  const staticDir = path.join(rootDir, buildConfig.staticDir)
 
   const globPath = path.join(pageDir, './**/*.*')
 
-  getWebpackgeBaseConfig(baseConfig, config => {
+  getWebpackgeBaseConfig(buildConfig, config => {
     const entry = config.entry || {}
     const plugins = config.plugins || []
     const rules = config.module.rules || []
 
-    config.output.path = baseConfig.distDir
+    config.output.path = buildConfig.distDir
     config.output.filename = "resources/js/[name].[hash].js", // string
 
     // build rules for production
@@ -77,28 +78,6 @@ function buildConfig (callback) {
               options: {
                 limit: 100,
                 name: 'resources/img/[name].[hash:7].[ext]'
-              }
-            },
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                gifsicle: {
-                  interlaced: false,
-                },
-                optipng: {
-                  optimizationLevel: 7,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4
-                },
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65
-                },
-                webp: {
-                  quality: 75
-                }
               }
             }
         ]
@@ -144,7 +123,7 @@ function buildConfig (callback) {
     // clean dist dirctory
     plugins.push(
       new CleanWebpackPlugin(['*'], {
-          root: baseConfig.distDir,   //  clean build root
+          root: buildConfig.distDir,   //  clean build root
           verbose:  true,  　　       //  show detail 
           dry:      false  　　       //  only delete files
         }
@@ -157,12 +136,12 @@ function buildConfig (callback) {
         {
           context: actionDir,
           from: '**/*',
-          to: path.join(baseConfig.distDir, 'controllers')
+          to: path.join(buildConfig.distDir, 'controllers')
         },
         {
           context: staticDir,
           from: '**/*',
-          to: path.join(baseConfig.distDir, 'static')
+          to: path.join(buildConfig.distDir, 'static')
         }
       ])
     )

@@ -3,7 +3,6 @@ const os = require('os')
 const tiresiasWebpack = require('tiresias-webpack')
 const opn = require('opn')
 const getWebpackConfig = require('../config/webpack.dev.config.js')
-const server = require('../../tiresias-custom-server/server.js')
 
 // tmp dir build for server
 const webrootDir = path.join(os.tmpdir(), './webroot')
@@ -14,15 +13,19 @@ const sourceRootDir = path.join(__dirname, '../../../src')
 // start server after first build end.
 var firstBuildEnd = false
 
-function startServer (port) {
+function startServer (port, server) {
   var serverConfig = {}
   serverConfig.rootDir = webrootDir
   serverConfig.port = port
+
+  if (!server) {
+    server = require('../../tiresias-custom-server/server.js')
+  }
   server.init(serverConfig)
   server.start()
 }
 
-function compileAndServe (port = 9999, buildConfig = {}) {
+function compileAndServe (port = 9999, buildConfig = {}, server) {
   getWebpackConfig(webpackConfig => {
     var compiler = tiresiasWebpack.exec(webpackConfig)
     compiler.watch({           // watch options:
@@ -43,7 +46,7 @@ function compileAndServe (port = 9999, buildConfig = {}) {
             `=> build end at: ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
           )
           if (!firstBuildEnd) {
-            startServer(port)
+            startServer(port, server)
             opn('http://127.0.0.1:' + port)
             firstBuildEnd = true
           }
