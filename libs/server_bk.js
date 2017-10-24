@@ -1,30 +1,39 @@
 const path = require('path')
 const os = require('os')
+const tiresias = require('tiresias')
 const tiresiasWebpack = require('tiresias-webpack')
 const opn = require('opn')
-const getWebpackConfig = require('../config/webpack.dev.config.js')
-const server = require('../../tiresias-custom-server/server.js')
 
-// tmp dir build for server
 const webrootDir = path.join(os.tmpdir(), './webroot')
+const testBuildRootDir = path.join(__dirname, '../test')
 
-// source build root
-const sourceRootDir = path.join(__dirname, '../../../src')
+const defaultConfig = {}
+defaultConfig.port = 9999
+defaultConfig.rootDir = testBuildRootDir
+defaultConfig.distDir = webrootDir
 
-// start server after first build end.
 var firstBuildEnd = false
 
-function startServer (port) {
+function serve (port) {
   var serverConfig = {}
   serverConfig.rootDir = webrootDir
-  serverConfig.port = port
-  server.init(serverConfig)
-  server.start()
+
+  tiresias.setConfig(serverConfig)
+  tiresias.simpleStart(port)
 }
 
-function compileAndServe (port = 9999, buildConfig = {}) {
-  getWebpackConfig(webpackConfig => {
-    var compiler = tiresiasWebpack.exec(webpackConfig)
+function compileAndServe (customConfig = defaultConfig) {
+  var buildConfig = {}
+  buildConfig.rootDir = defaultConfig.rootDir
+  buildConfig.distDir = defaultConfig.distDir
+
+  buildConfig = Object.assign({}, buildConfig, customConfig)
+
+  var port = buildConfig.port
+
+  tiresiasWebpack(buildConfig, webpackConfig => {
+    return webpackConfig
+  }, compiler => {
     compiler.watch({           // watch options:
       aggregateTimeout: 300,   // wait so long for more changes
       poll: true               // use polling instead of native watchers
@@ -38,22 +47,18 @@ function compileAndServe (port = 9999, buildConfig = {}) {
             chunks: false,
             chunkModules: false
           }) + '\n')
-          var date = new Date
-          console.log(
-            `=> build end at: ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-          )
           if (!firstBuildEnd) {
-            startServer(port)
+            serve(port)
             opn('http://127.0.0.1:' + port)
             firstBuildEnd = true
           }
         })
     }); 
-
     console.log('building resource please wait...')
-  }, buildConfig)
+  })
 }
 
 // compileAndServe()
-
 module.exports = compileAndServe
+
+

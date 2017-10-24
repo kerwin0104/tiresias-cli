@@ -74,7 +74,7 @@ var config = {
   // This set of options is identical to the resolve property set above, 
   // but is used only to resolve webpack's loader packages. Default:
   resolveLoader: {
-    modules: [path.resolve(__dirname, "../node_modules/")],
+    modules: [path.resolve(__dirname, "../../../node_modules/")],
     extensions: [".js", ".json"],
     mainFields: ["loader", "main"]
   },
@@ -84,7 +84,7 @@ var config = {
     // (does not apply to resolving to loaders)
 
     modules: [
-      path.resolve(__dirname, '../node_modules'),
+      path.resolve(__dirname, '../../../node_modules'),
       "node_modules"
     ],
 
