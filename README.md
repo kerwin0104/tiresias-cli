@@ -8,7 +8,7 @@ npm install -g tiresias-cli
 
 ## create project
 ```shell
-tiresias init your-project name
+tiresias init your-project-name
 ```
 
 ## develop
