@@ -42,8 +42,6 @@ function buildConfig (callback,  buildConfig) {
     config.output.path = buildConfig.distDir
     config.output.filename = "resources/js/[name].[hash].js", // string
 
-  console.log('---------------------------------------------------------------')
-  console.log('babel-loader?presets[]=' + ["babel-preset-es2015"].map(require.resolve))
 
     // build rules for production
     rules.push(

@@ -16,7 +16,7 @@ defaultConfig.buildDistPath = buildDistPath
 function copyServerFiles (config, callback) {
   console.log('copying server files...')
   cpr(serverTemplatePath, config.distDir, {
-    filter: /node_modules/,
+    // filter: /node_modules/,  // shit!
     deleteFirst: true,       //Delete "to" before
     overwrite: true,         //If the file exists, overwrite it
     confirm: true            //After the copy, stat all the copied files to make sure they are there
