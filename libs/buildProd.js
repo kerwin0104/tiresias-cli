@@ -2,13 +2,12 @@ const path = require('path')
 const cpr = require('cpr')
 const build = require('../build/tiresias-custom-webpack/build/prod.js')
 
+var serverTemplatePath = path.join(__dirname, '../tiresias-custom-template/tiresias-custom-server')
 const buildSourcePath = path.join(__dirname, '../test')
 const buildDistPath = path.join(__dirname, '../dist/src')
 
 function copyServerFiles (config, callback) {
-  var serverTemplatePath = path.join(config.rootDir, './tiresias-custom-server')
   console.log('copying server files...')
-
   cpr(serverTemplatePath, config.distDir, {
     deleteFirst: true,  //Delete "to" before
     overwrite: true,    //If the file exists, overwrite it
