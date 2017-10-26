@@ -85,7 +85,7 @@ var config = {
     // (does not apply to resolving to loaders)
 
     modules: [
-      path.resolve(__dirname, '../../../../'), // shit!
+      path.resolve(__dirname, '../../../node_modules'), // shit!
       "node_modules"
     ],
 
