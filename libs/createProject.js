@@ -74,7 +74,7 @@ function createProject (action, projectConfig, callback) {
               console.log('proejct [custom] webpack files copied!')
               console.log('proejct [custom] ready!')
             }
-          })
+          }, true)
 
 
           
