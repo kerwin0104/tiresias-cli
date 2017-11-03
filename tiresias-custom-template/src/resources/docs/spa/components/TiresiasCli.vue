@@ -311,7 +311,7 @@
             </pre> 
           </code>
           <p>
-            模板文件：<em>actions/demo/_username/home/index.hbs</em>
+            模板文件：<em>pages/demo/_username/home/index.hbs</em>
           </p>
           <code>
             <pre v-pre> 
@@ -404,6 +404,45 @@
           <p>
             <a href="/demos/resource" target="_blank">静态资源引入示例</a>
           </p>
+
+
+          <div class="sub-title" id="server-project-config">
+            项目配置文件
+          </div>
+          <blockquote>
+            v0.0.20版本开始，我们引入了 <em>project.json</em> 文件用于增加各种项目配置。
+          </blockquote>
+          <p>
+            具体的配置文件字段解释如下
+          </p>
+          <blockquote>
+            <pre>
+  {
+    "server": {           // 服务器端配置
+      "proxy": {          // 代理配置，配置字段参见 <a href="https://github.com/chimurai/http-proxy-middleware" target="_blank">http-proxy-middleware</a> 文档
+        "/api": {
+          "target": "http://www.example.org/",
+          "changeOrigin": true,
+          "pathRewrite": {
+              "^/api": "/"
+          }
+        }
+      }
+    }
+  }
+            </pre>
+          </blockquote>
+          <p>
+            服务器端代理(仅在 <em>tss run dev</em> 命令下生效)，用于开发阶段代理接口到后端接口地址。<br>
+            出于安全考虑，原则上线上环境不允许直接使用 <em>http-proxy-middleware</em> 用于转发接口。<br>
+            如需在线上环境也使用正式接口，需要在 <em>actions</em> 文件夹中编写转发代码。<br>
+            如一定要在线上使用proxy同样配置的，请自行添加 <em>http-proxy-middleware</em> 用于解析。
+          </p>
+
+
+
+
+
 
         </div>
       </div>

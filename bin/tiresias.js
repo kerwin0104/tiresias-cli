@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+const fs = require('fs')
 const path = require('path')
 const program = require('commander')
 const createDevServer = require('../libs/server')
@@ -30,13 +31,45 @@ program
   .action((env, options) => {
     if (options.custom) {
       var build = require(path.join(process.cwd(), `./tiresias-custom-webpack/build/${env}`))
-      build()
+      if (env === 'dev') {
+        var buildConfig = {}
+        buildConfig.port =  options.port || 9999
+        buildConfig.rootDir = process.cwd()
+        var projectConfigPath = path.join(buildConfig.rootDir, './project.json')
+        var projectConfigPath = path.join(buildConfig.rootDir, './project.json')
+        fs.stat(projectConfigPath, (err, stat) => {
+          var projectConfig
+          if (err) {
+            console.log('no project config, use default.')
+            projectConfig = {}
+          } else {
+            console.log('got project config.')
+            projectConfig = require(projectConfigPath)
+          }
+          
+          build(options.port, config, null, projectConfig)
+        })
+      } 
+      if (env === 'pord') {
+        build()
+      }
     } else {
       if (env === 'dev') {
         var buildConfig = {}
         buildConfig.port =  options.port || 9999
         buildConfig.rootDir = process.cwd()
-        createDevServer(buildConfig)  
+        var projectConfigPath = path.join(buildConfig.rootDir, './project.json')
+        fs.stat(projectConfigPath, (err, stat) => {
+          var projectConfig
+          if (err) {
+            console.log('no project config, use default.')
+            projectConfig = {}
+          } else {
+            console.log('got project config.')
+            projectConfig = require(projectConfigPath)
+          }
+          createDevServer(buildConfig, projectConfig)  
+        })
       } 
       if (env === 'prod') {
         var cwd = process.cwd()
@@ -51,7 +84,7 @@ program
 
 program
   .command('init <projectName>')
-  .description( 'use "tiresias init <your project name>" to init your porject.')
+  .description( 'use "tiresias init <your project name>" to init your project.')
   .option('-c, --custom [custom]', 'custom [webpack cofing] and [tiresias server] for dev or build')
   .action((projectName, options) => {
     var projectConfig = {}

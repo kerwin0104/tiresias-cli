@@ -7,7 +7,7 @@ var serverConfig = {}
 serverConfig.rootDir = webrootDir
 serverConfig.port = 9999
 
-server = { 
+const server = { 
   init (config) {
     if (config) {
       serverConfig = Object.assign({}, serverConfig, config)

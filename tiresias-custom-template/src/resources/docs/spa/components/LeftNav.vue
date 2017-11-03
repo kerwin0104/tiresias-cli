@@ -64,6 +64,12 @@
                 </router-link>
               </li>
 
+              <li>
+                <router-link to="/server-project-config" @click.native="scrollToElement">
+                  项目配置文件
+                </router-link>
+              </li>
+
             </ul>
           </li>
           <li>

@@ -14,15 +14,22 @@ const sourceRootDir = path.join(__dirname, '../../../src')
 // start server after first build end.
 var firstBuildEnd = false
 
-function startServer (port) {
+function startServer (port, devServerConfig, devServer) {
   var serverConfig = {}
   serverConfig.rootDir = webrootDir
   serverConfig.port = port
-  server.init(serverConfig)
-  server.start()
+  var tiresias = devServer.init(serverConfig)
+  var proxyConf = devServerConfig.proxy
+  if (proxyConf) {
+    var proxy = require('http-proxy-middleware')
+    for(var path in proxyConf) {
+      tiresias.app.use(path, proxy(proxyConf[path]))
+    }
+  }
+  devServer.start()
 }
 
-function compileAndServe (port = 9999, buildConfig = {}) {
+function compileAndServe (port = 9999, buildConfig = {}, devServer, projectConfig) {
   getWebpackConfig(webpackConfig => {
     var compiler = tiresiasWebpack.exec(webpackConfig)
     compiler.watch({           // watch options:
@@ -42,8 +49,9 @@ function compileAndServe (port = 9999, buildConfig = {}) {
           console.log(
             `=> build end at: ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
           )
-          if (!firstBuildEnd) {
-            startServer(port)
+          if (!firstBuildEnd) { 
+            startServer(port, projectConfig.server || {}, devServer)
+            
             opn('http://127.0.0.1:' + port)
             firstBuildEnd = true
           }
