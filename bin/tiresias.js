@@ -51,7 +51,7 @@ program
             buildConfig.port =  projectConfig.server.port
           }
           
-          build(buildConfig.port, config, null, projectConfig)
+          build(buildConfig.port, buildConfig, null, projectConfig)
         })
       } 
       if (env === 'pord') {
