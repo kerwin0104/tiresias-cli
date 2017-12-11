@@ -1,5 +1,6 @@
 {
   "server": {
+    "port": 7777,
     "proxy": {
       "/api": {
         "target": "http://www.example.org/",

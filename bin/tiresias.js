@@ -46,8 +46,10 @@ program
             console.log('got project config.')
             projectConfig = require(projectConfigPath)
           }
-
-          buildConfig.port =  projectConfig.port || buildConfig.port
+          
+          if (projectConfig.server && projectConfig.server.port) {
+            buildConfig.port =  projectConfig.server.port
+          }
           
           build(buildConfig.port, config, null, projectConfig)
         })
@@ -70,7 +72,10 @@ program
             console.log('got project config.')
             projectConfig = require(projectConfigPath)
           }
-          buildConfig.port =  projectConfig.port || buildConfig.port
+
+          if (projectConfig.server && projectConfig.server.port) {
+            buildConfig.port =  projectConfig.server.port
+          }
           createDevServer(buildConfig, projectConfig)  
         })
       } 
