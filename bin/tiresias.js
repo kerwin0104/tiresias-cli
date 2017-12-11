@@ -46,8 +46,10 @@ program
             console.log('got project config.')
             projectConfig = require(projectConfigPath)
           }
+
+          buildConfig.port =  projectConfig.port || buildConfig.port
           
-          build(options.port, config, null, projectConfig)
+          build(buildConfig.port, config, null, projectConfig)
         })
       } 
       if (env === 'pord') {
@@ -68,6 +70,7 @@ program
             console.log('got project config.')
             projectConfig = require(projectConfigPath)
           }
+          buildConfig.port =  projectConfig.port || buildConfig.port
           createDevServer(buildConfig, projectConfig)  
         })
       } 
