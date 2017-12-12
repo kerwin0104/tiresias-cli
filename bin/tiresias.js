@@ -54,7 +54,7 @@ program
           build(buildConfig.port, buildConfig, null, projectConfig)
         })
       } 
-      if (env === 'pord') {
+      if (env === 'prod') {
         build()
       }
     } else {
@@ -84,7 +84,6 @@ program
         var config = {}
         config.rootDir = path.join(cwd)
         config.distDir = options.dist || path.join(cwd, './dist')
-        console.log(config)
         buildProd(config)
       }
     }

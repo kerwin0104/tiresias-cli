@@ -9,6 +9,7 @@
   "author": "kerwinzhang@foxmail.com",
   "license": "MIT",
   "dependencies": {
+    "http-proxy-middleware": "^0.17.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
