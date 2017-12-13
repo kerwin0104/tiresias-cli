@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "tiresias": "^0.0.6"
+    "tiresias": "^0.0.7"
   },
   "devDependencies": {},
   "scripts": {
